@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: A2. Convert to DataBinding layout and bind User data -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="user"
+            type="com.natashaval.futuredatabinding.model.User" />
+        <variable
+            name="activity"
+            type="com.natashaval.futuredatabinding.MainActivity" />
+        <variable
+            name="viewModel"
+            type="com.natashaval.futuredatabinding.viewmodel.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/tv_first_label"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="@string/first_name"
+            app:layout_constraintEnd_toStartOf="@id/tv_last_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_first_name"
+            android:text="@{viewModel.user.firstName}"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:hint="@string/first_name_hint"
+            app:layout_constraintEnd_toEndOf="@id/tv_first_label"
+            app:layout_constraintStart_toStartOf="@id/tv_first_label"
+            app:layout_constraintTop_toBottomOf="@id/tv_first_label" />
+
+        <TextView
+            android:id="@+id/tv_last_label"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/last_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_first_label"
+            app:layout_constraintTop_toTopOf="@id/tv_first_label" />
+
+        <TextView
+            android:id="@+id/tv_last_name"
+            android:text="@{viewModel.user.lastName}"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:hint="@string/last_name_hint"
+            app:layout_constraintEnd_toEndOf="@id/tv_last_label"
+            app:layout_constraintStart_toStartOf="@id/tv_last_label"
+            app:layout_constraintTop_toBottomOf="@id/tv_last_label" />
+
+        <Button
+            android:id="@+id/bt_profile_activity"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="@string/open_activity"
+            android:onClick="@{activity::openActivity}"
+            app:layout_constraintEnd_toStartOf="@id/bt_profile_fragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_first_name" />
+
+        <Button
+            android:id="@+id/bt_profile_fragment"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_fragment"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_profile_activity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bt_profile_activity"
+            app:layout_constraintTop_toTopOf="@id/bt_profile_activity" />
+
+        <TextView
+            android:id="@+id/tv_score_label"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score"
+            app:layout_constraintTop_toBottomOf="@id/bt_profile_activity"
+            app:layout_constraintStart_toStartOf="@id/tv_score"
+            app:layout_constraintEnd_toEndOf="@id/tv_score" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            style="@style/TextAppearance.MaterialComponents.Headline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.score)}"
+            app:layout_constraintTop_toBottomOf="@id/tv_score_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!--    TODO: A10. set bt_score_minus visibility to GONE if score = 0 in custom attributes -->
+        <Button
+            android:id="@+id/bt_score_minus"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            hideMinus="@{viewModel.score}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:onClick="@{() -> viewModel.updateScore(-1)}"
+            android:text="@string/score_minus"
+            android:textSize="@dimen/score_size"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/tv_score"
+            app:layout_constraintEnd_toStartOf="@id/tv_score"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_score" />
+
+        <!--    TODO: A9. set bt_score_plus visibility to GONE if score = 20 in android:visibility attributes -->
+        <Button
+            android:id="@+id/bt_score_plus"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_plus"
+            android:textSize="@dimen/score_size"
+            android:backgroundTint="@color/colorAccent"
+            hidePlus="@{viewModel.score}"
+            app:layout_constraintStart_toEndOf="@id/tv_score"
+            app:layout_constraintTop_toTopOf="@id/tv_score"
+            app:layout_constraintBottom_toBottomOf="@id/tv_score"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{() -> viewModel.updateScore(+1)}"/>
+
+        <Button
+            android:id="@+id/bt_generate_score"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:text="Generate Score Board"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/bt_score_minus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_score_plus" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_generate_score"
+            tools:layout_editor_absoluteX="171dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

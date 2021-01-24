@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FutureDataBinding</string>
+    <string name="open_activity">Activity</string>
+    <string name="open_fragment">Fragment</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="first_name_hint">John</string>
+    <string name="last_name_hint">Doe</string>
+    <string name="score_minus">-1</string>
+    <string name="score_plus">+1</string>
+</resources>
